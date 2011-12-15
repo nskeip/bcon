@@ -13,6 +13,10 @@ class Block(object):
         >>> b = Block.create_from_config(conf)
         >>> b.name
         'index'
+        >>> isinstance(b.children['header'], Block)
+        True
+        >>> isinstance(b.children['body'], Block)
+        True
         """
         ret = Block(config['block'])
         
