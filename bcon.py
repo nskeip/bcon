@@ -9,7 +9,7 @@ class Block(object):
     @classmethod
     def create_from_config(cls, config):
         """
-        >>> conf = { 'block': 'index', 'content': { 'header': {'block': 'header'}, 'body': {'block': 'body'}, }}
+        >>> conf = { 'block': 'index', 'content': { 'header': {'block': 'header'}, 'body': {'block': 'body', 'content': {'links': { 'block': 'links' }}}, }}
         >>> b = Block.create_from_config(conf)
         >>> b.name
         'index'
@@ -17,6 +17,14 @@ class Block(object):
         True
         >>> isinstance(b.children['body'], Block)
         True
+        >>> isinstance(b.children['body'].children['links'], Block)
+        True
+        >>> b.children['body'].children['links'].name
+        'links'
+        >>> b.children['body'].children['links'].children
+        {}
+        >>> b.children['body'].children.keys()
+        ['links']
         """
         ret = Block(config['block'])
         
