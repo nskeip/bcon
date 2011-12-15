@@ -49,7 +49,7 @@ class Block(object):
         >>> b.children['body'].children
         {'links': <Block 'links'>}
         """
-        ret = Block(config['block'])
+        ret = cls(config['block'])
 
         if 'content' in config:
             for child_name, child_value in config['content'].iteritems():
