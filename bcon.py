@@ -23,8 +23,8 @@ class Block(object):
         'links'
         >>> b.children['body'].children['links'].children
         {}
-        >>> b.children['body'].children.keys()
-        ['links']
+        >>> b.children['body'].children
+        {'links': <Block 'links'>}
         """
         ret = Block(config['block'])
         
@@ -33,4 +33,7 @@ class Block(object):
                 ret.children[child_name] = cls.create_from_config(child_config)
 
         return ret
+        
+    def __repr__(self):
+        return '<Block \'%s\'>' % self.name
 
