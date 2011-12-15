@@ -9,7 +9,28 @@ class Block(object):
     @classmethod
     def create_from_config(cls, config):
         """
-        >>> conf = { 'block': 'index', 'content': { 'header': {'block': 'header'}, 'body': {'block': 'body', 'content': {'links': { 'block': 'links', 'content': {'link1': 'Some link', 'some_place': {'block': 'some_block'}}}}}}}
+        >>> conf = { 
+        ...     'block': 'index', 
+        ...     'content': { 
+        ...         'header': {
+        ...             'block': 'header'
+        ...         }, 
+        ...         'body': {
+        ...             'block': 'body', 
+        ...             'content': {
+        ...                 'links': { 
+        ...                     'block': 'links', 
+        ...                     'content': {
+        ...                         'link1': 'Some link',
+        ...                         'some_place': {
+        ...                             'block': 'some_block'
+        ...                         }
+        ...                     }
+        ...                 }
+        ...             }
+        ...         }
+        ...     }
+        ... }
         >>> b = Block.create_from_config(conf)
         >>> b.name
         'index'
