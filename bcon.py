@@ -9,17 +9,17 @@ class Block(object):
     @classmethod
     def create_from_config(cls, config):
         """
-        >>> conf = { 
-        ...     'block': 'index', 
-        ...     'content': { 
+        >>> conf = {
+        ...     'block': 'index',
+        ...     'content': {
         ...         'header': {
         ...             'block': 'header'
-        ...         }, 
+        ...         },
         ...         'body': {
-        ...             'block': 'body', 
+        ...             'block': 'body',
         ...             'content': {
-        ...                 'links': { 
-        ...                     'block': 'links', 
+        ...                 'links': {
+        ...                     'block': 'links',
         ...                     'content': {
         ...                         'link1': 'Some link',
         ...                         'some_place': {
@@ -50,16 +50,16 @@ class Block(object):
         {'links': <Block 'links'>}
         """
         ret = Block(config['block'])
-        
+
         if 'content' in config:
             for child_name, child_value in config['content'].iteritems():
                 if isinstance(child_value, basestring):
                     ret.children[child_name] = child_value
-                elif isinstance(child_value, dict): # wow! it's a config!
-                    ret.children[child_name] = cls.create_from_config(child_value)
+                elif isinstance(child_value, dict):  # wow! it's a config!
+                    child_block = cls.create_from_config(child_value)
+                    ret.children[child_name] = child_block
 
         return ret
-        
+
     def __repr__(self):
         return '<Block \'%s\'>' % self.name
-
