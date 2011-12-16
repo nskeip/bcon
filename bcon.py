@@ -63,3 +63,17 @@ class Block(object):
 
     def __repr__(self):
         return '<Block \'%s\'>' % self.name
+
+
+class Page(object):
+    def __init__(self, main_block):
+        self.block = block
+        self.css = []
+        self.js = []
+
+    def add_css(self, css_path):
+        self.css.append(css_fp)
+
+    def add_js(self, js_path):
+        self.js.append(js_path)
+
