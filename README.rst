@@ -8,6 +8,10 @@ Description
 Mmm... Bacon. An implementation of block-element-modyfier pattern. It is all about declarative way in html layout. In progress, bro. Wait a bit.
 
 
+Requirements
+------------
+* argparse
+
 What it can
 -----------
 * Can help you develop separate layout blocks (but if you do it _right_:)) and then reuse it to death
