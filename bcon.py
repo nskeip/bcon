@@ -1,5 +1,8 @@
 #-*- coding: UTF-8 -*-
 import os
+import sys
+import argparse
+import json
 from xml.dom.minidom import parse
 
 
@@ -72,15 +75,29 @@ class Block(object):
         return '<Block \'%s\'>' % self.name
 
 
-class Page(object):
-    def __init__(self, main_block):
-        self.block = main_block
-        self.css = []
-        self.js = []
+if __name__ == '__main__':
+    arg_parser = argparse.ArgumentParser(description='Bacon. Yet another b-e-ms pattern implementation.')
+    arg_parser.add_argument('config',
+                            help='a js-config file describing the layout',
+                            metavar='CONFIG_JS')
+    arg_parser.add_argument('output_dir',
+                            help='output directory where compiled files will be stored',
+                            metavar='OUT_DIR')
+    args = arg_parser.parse_args(sys.argv[1:])
 
-    def add_css(self, css_path):
-        self.css.append(css_path)
+    try:
+        os.makedirs(args.output_dir)
+    except OSError:
+        print 'file exists or something. we do not wanna any overwrites'
+        sys.exit(1)
 
-    def add_js(self, js_path):
-        self.js.append(js_path)
+    try:
+        js_config = json.loads(open(args.config).read())
+    except IOError:
+        print 'the config aint found (or some other io-shit happened)'
+        sys.exit(2)
+    except ValueError:
+        print 'failed to parse config'
+        sys.exit(3)
 
+    main_block = Block.create_from_config(js_config)
