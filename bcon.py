@@ -77,12 +77,23 @@ class Block(object):
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser(description='Bacon. Yet another b-e-ms pattern implementation.')
+
     arg_parser.add_argument('config',
-                            help='a js-config file describing the layout',
-                            metavar='CONFIG_JS')
+                            help='a js-config file describing the layout')
+
     arg_parser.add_argument('output_dir',
-                            help='output directory where compiled files will be stored',
-                            metavar='OUT_DIR')
+                            help='output directory where compiled files will be stored')
+
+    arg_parser.add_argument('--static-dir', '-sD',
+                            default='./static',
+                            dest='static_dir',
+                            help='where static is stored on your drive')
+
+    arg_parser.add_argument('--static-prefix', '-sP',
+                            default='/static',
+                            dest='static_prefix',
+                            help='static directory prefix on your pages')
+
     args = arg_parser.parse_args(sys.argv[1:])
 
     try:
