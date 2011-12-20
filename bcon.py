@@ -1,6 +1,7 @@
 #-*- coding: UTF-8 -*-
 import os
 import sys
+import shutil
 import argparse
 import json
 from xml.dom.minidom import parse
@@ -65,7 +66,13 @@ class Block(object):
                     ret.children[child_name] = child_block
 
         return ret
-        
+
+    def get_resources_filenames(self):
+        dir_list = os.listdir(self.name)
+        for fn in dir_list:
+            if fn != 'source.html':
+                yield fn
+
     @staticmethod
     def load_block_document(name):
         fp = os.path.abspath(os.path.join(name, 'source.html'))
@@ -74,6 +81,12 @@ class Block(object):
     def __repr__(self):
         return '<Block \'%s\'>' % self.name
 
+
+def ensure_dir(path):
+    try:
+        os.makedirs(path)
+    except OSError:
+        pass
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser(description='Bacon. Yet another b-e-ms pattern implementation.')
@@ -96,19 +109,20 @@ if __name__ == '__main__':
 
     args = arg_parser.parse_args(sys.argv[1:])
 
-    try:
-        os.makedirs(args.output_dir)
-    except OSError:
-        print 'file exists or something. we do not wanna any overwrites'
-        sys.exit(1)
 
     try:
         js_config = json.loads(open(args.config).read())
     except IOError:
         print 'the config aint found (or some other io-shit happened)'
-        sys.exit(2)
+        sys.exit(1)
     except ValueError:
         print 'failed to parse config'
-        sys.exit(3)
+        sys.exit(2)
 
     main_block = Block.create_from_config(js_config)
+
+    ensure_dir(args.output_dir)
+    ensure_dir(args.static_dir)
+
+    for fn in main_block.get_resources_filenames():
+        shutil.copy(os.path.join(main_block.name, fn), os.path.abspath(os.path.join(args.static_dir, fn)))
