@@ -1,4 +1,6 @@
 #-*- coding: UTF-8 -*-
+import os
+from xml.dom.minidom import parse
 
 
 class Block(object):
@@ -60,6 +62,11 @@ class Block(object):
                     ret.children[child_name] = child_block
 
         return ret
+        
+    @staticmethod
+    def load_block_document(name):
+        fp = os.path.abspath(os.path.join(name, 'source.html'))
+        return parse(fp)
 
     def __repr__(self):
         return '<Block \'%s\'>' % self.name
@@ -67,12 +74,12 @@ class Block(object):
 
 class Page(object):
     def __init__(self, main_block):
-        self.block = block
+        self.block = main_block
         self.css = []
         self.js = []
 
     def add_css(self, css_path):
-        self.css.append(css_fp)
+        self.css.append(css_path)
 
     def add_js(self, js_path):
         self.js.append(js_path)
