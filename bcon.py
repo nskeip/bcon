@@ -67,62 +67,9 @@ class Block(object):
 
         return ret
 
-    def get_resources_filenames(self):
-        dir_list = os.listdir(self.name)
-        for fn in dir_list:
-            if fn != 'source.html':
-                yield fn
-
-    @staticmethod
-    def load_block_document(name):
-        fp = os.path.abspath(os.path.join(name, 'source.html'))
-        return parse(fp)
-
     def __repr__(self):
         return '<Block \'%s\'>' % self.name
 
-
-def ensure_dir(path):
-    try:
-        os.makedirs(path)
-    except OSError:
-        pass
-
 if __name__ == '__main__':
-    arg_parser = argparse.ArgumentParser(description='Bacon. Yet another b-e-ms pattern implementation.')
-
-    arg_parser.add_argument('config',
-                            help='a js-config file describing the layout')
-
-    arg_parser.add_argument('output_dir',
-                            help='output directory where compiled files will be stored')
-
-    arg_parser.add_argument('--static-dir', '-sD',
-                            default='./static',
-                            dest='static_dir',
-                            help='where static is stored on your drive')
-
-    arg_parser.add_argument('--static-prefix', '-sP',
-                            default='/static',
-                            dest='static_prefix',
-                            help='static directory prefix on your pages')
-
-    args = arg_parser.parse_args(sys.argv[1:])
-
-
-    try:
-        js_config = json.loads(open(args.config).read())
-    except IOError:
-        print 'the config aint found (or some other io-shit happened)'
-        sys.exit(1)
-    except ValueError:
-        print 'failed to parse config'
-        sys.exit(2)
-
-    main_block = Block.create_from_config(js_config)
-
-    ensure_dir(args.output_dir)
-    ensure_dir(args.static_dir)
-
-    for fn in main_block.get_resources_filenames():
-        shutil.copy(os.path.join(main_block.name, fn), os.path.abspath(os.path.join(args.static_dir, fn)))
+    import doctest
+    doctest.testmod()
