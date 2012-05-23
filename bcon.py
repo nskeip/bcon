@@ -2,51 +2,70 @@
 
 
 class Bacon(object):
+    def __init__(self):
+        self._container = []
+        self._class_str = None
 
+
+    def append(self, piece_of_bacon):
+        assert isinstance(piece_of_bacon, Bacon)
+        self._container.append(piece_of_bacon)
+
+
+    def __len__(self):
+        return len(self._container)
+
+    
     @classmethod
     def from_config(cls, config):
         """
         >>> conf = [{
         ...     'class': 'container',
-        ...     'contents': [ # bacon stripes ;)
-        ...         {
-        ...             'class': 'row',
-        ...             'contents': [
-        ...                 {
-        ...                     'class': 'span12',
-        ...                     'contents': [
-        ...                         {'block': 'header'},
-        ...                     ],
-        ...                 }
-        ...             ]
-        ...         },
-        ...
-        ...         {
-        ...             'class': 'row',
-        ...             'contents': [
-        ...                 {
-        ...                     'class': 'span4', 
-        ...                     'contents': [{'block': 'content'}]
-        ...                 },
-        ...
-        ...                 {
-        ...                     'class': 'span8', 
-        ...                     'contents': [
-        ...                         {'block': 'nav'},
-        ...                         {'block': 'adv'},
-        ...                     ]
-        ...                 },
-        ...             ]
-        ...         }
-        ...     ]
-        ... }]
+        ...     'contents': [
+        ...              {
+        ...                 'class': 'row',
+        ...                 'contents': [
+        ...                     {
+        ...                         'class': 'span12',
+        ...                         'contents': [
+        ...                             {'block': 'header'},
+        ...                         ],
+        ...                     }
+        ...                 ]
+        ...             },
+        ...    
+        ...             {
+        ...                 'class': 'row',
+        ...                 'contents': [
+        ...                     {
+        ...                         'class': 'span4', 
+        ...                         'contents': [{'block': 'content'}]
+        ...                     },
+        ...    
+        ...                     {
+        ...                         'class': 'span8', 
+        ...                         'contents': [
+        ...                             {'block': 'nav'},
+        ...                             {'block': 'adv'},
+        ...                         ]
+        ...                     },
+        ...                 ]
+        ...             }
+        ...         ]
+        ...     }
+        ... ]
 
-        >>> cls = Bacon
-        >>> p = cls.from_config(conf)
+        >>> p = Bacon.from_config(conf)
         >>> isinstance(p, Bacon)
         True
+        >>> len(p)
+        1
         """
         ret = cls()
+        for bp in config:
+            if 'contents' in bp:
+                bacon_piece = cls.from_config(bp['contents'])
+                ret.append(bacon_piece)
         return ret
 
 if __name__ == '__main__':
