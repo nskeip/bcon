@@ -1,14 +1,14 @@
 #-*- coding: UTF-8 -*-
 
 
-class Page(object):
+class Bacon(object):
 
     @classmethod
     def from_config(cls, config):
         """
-        >>> conf = {
+        >>> conf = [{
         ...     'class': 'container',
-        ...     'contents': [
+        ...     'contents': [ # bacon stripes ;)
         ...         {
         ...             'class': 'row',
         ...             'contents': [
@@ -39,9 +39,15 @@ class Page(object):
         ...             ]
         ...         }
         ...     ]
-        ... }
+        ... }]
+
+        >>> cls = Bacon
+        >>> p = cls.from_config(conf)
+        >>> isinstance(p, Bacon)
+        True
         """
-        pass
+        ret = cls()
+        return ret
 
 if __name__ == '__main__':
     import doctest
