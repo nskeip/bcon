@@ -4,7 +4,7 @@
 class Bacon(object):
     def __init__(self):
         self._container = []
-        self._class_str = None
+        self._class_name = None
 
 
     def append(self, piece_of_bacon):
@@ -19,7 +19,7 @@ class Bacon(object):
     @classmethod
     def from_config(cls, config):
         """
-        >>> conf = [{
+        >>> conf = {
         ...     'class': 'container',
         ...     'contents': [
         ...              {
@@ -53,19 +53,25 @@ class Bacon(object):
         ...             }
         ...         ]
         ...     }
-        ... ]
 
         >>> p = Bacon.from_config(conf)
         >>> isinstance(p, Bacon)
         True
         >>> len(p)
-        1
+        2
         """
         ret = cls()
-        for bp in config:
-            if 'contents' in bp:
-                bacon_piece = cls.from_config(bp['contents'])
-                ret.append(bacon_piece)
+
+        # TODO: block
+
+        if 'class' in config:
+            ret._class_name = config['class']
+
+        if 'contents' in config:
+            for c in config['contents']:
+                piece_of_beacon = cls.from_config(c)
+                ret.append(piece_of_beacon)
+
         return ret
 
 if __name__ == '__main__':
