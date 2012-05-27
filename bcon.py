@@ -44,7 +44,7 @@ class Bacon(object):
         ...                 'contents': [
         ...                     {
         ...                         'class': 'span4',
-        ...                         'contents': [{'block': 'content'}]
+        ...                         'block': 'content',
         ...                     },
         ...
         ...                     {
