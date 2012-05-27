@@ -8,22 +8,18 @@ class Bacon(object):
         self.block_name = block_name
         self.class_name = class_name
 
-
     def append(self, piece_of_bacon):
         assert isinstance(piece_of_bacon, Bacon)
         self._container.append(piece_of_bacon)
 
-
     def __len__(self):
         return len(self._container)
-
 
     def __iter__(self):
         return self._container.__iter__()
 
     def __getitem__(self, item):
         return self._container[item]
-
 
     @classmethod
     def from_config(cls, config):
@@ -42,17 +38,17 @@ class Bacon(object):
         ...                     }
         ...                 ]
         ...             },
-        ...    
+        ...
         ...             {
         ...                 'class': 'row',
         ...                 'contents': [
         ...                     {
-        ...                         'class': 'span4', 
+        ...                         'class': 'span4',
         ...                         'contents': [{'block': 'content'}]
         ...                     },
-        ...    
+        ...
         ...                     {
-        ...                         'class': 'span8', 
+        ...                         'class': 'span8',
         ...                         'contents': [
         ...                             {'block': 'nav'},
         ...                             {'block': 'adv'},
