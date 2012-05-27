@@ -30,6 +30,8 @@ class Bacon(object):
         ...              {
         ...                 'class': 'row',
         ...                 'contents': [
+        ...                     # the following block
+        ...                     # will be in <div class='span12'>...</div>
         ...                     {
         ...                         'class': 'span12',
         ...                         'block': 'header',
