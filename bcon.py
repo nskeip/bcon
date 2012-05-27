@@ -5,8 +5,8 @@ class Bacon(object):
     def __init__(self, block_name=None, class_name=None):
         self._container = []
 
-        self._block = block_name
-        self._class_name = class_name
+        self.block_name = block_name
+        self.class_name = class_name
 
 
     def append(self, piece_of_bacon):
@@ -68,15 +68,15 @@ class Bacon(object):
         True
         >>> len(p)
         2
-        >>> p[0]._class_name
+        >>> p[0].class_name
         'row'
-        >>> p[0][0]._class_name
+        >>> p[0][0].class_name
         'span12'
-        >>> p[1][0]._class_name
+        >>> p[1][0].class_name
         'span4'
 
         >>> for pb in p:
-        ...     pb._class_name == 'row'
+        ...     pb.class_name == 'row'
         True
         True
         """
