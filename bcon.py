@@ -2,9 +2,11 @@
 
 
 class Bacon(object):
-    def __init__(self):
+    def __init__(self, block_name=None, class_name=None):
         self._container = []
-        self._class_name = None
+
+        self._block = block_name
+        self._class_name = class_name
 
 
     def append(self, piece_of_bacon):
@@ -60,12 +62,8 @@ class Bacon(object):
         >>> len(p)
         2
         """
-        ret = cls()
-
-        # TODO: block
-
-        if 'class' in config:
-            ret._class_name = config['class']
+        ret = cls(block_name=config.get('block'),
+                  class_name=config.get('class'))
 
         if 'contents' in config:
             for c in config['contents']:
