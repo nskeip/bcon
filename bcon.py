@@ -32,9 +32,7 @@ class Bacon(object):
         ...                 'contents': [
         ...                     {
         ...                         'class': 'span12',
-        ...                         'contents': [
-        ...                             {'block': 'header'},
-        ...                         ],
+        ...                         'block': 'header',
         ...                     }
         ...                 ]
         ...             },
