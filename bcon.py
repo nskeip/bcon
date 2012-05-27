@@ -17,7 +17,14 @@ class Bacon(object):
     def __len__(self):
         return len(self._container)
 
-    
+
+    def __iter__(self):
+        return self._container.__iter__()
+
+    def __getitem__(self, item):
+        return self._container[item]
+
+
     @classmethod
     def from_config(cls, config):
         """
@@ -61,6 +68,17 @@ class Bacon(object):
         True
         >>> len(p)
         2
+        >>> p[0]._class_name
+        'row'
+        >>> p[0][0]._class_name
+        'span12'
+        >>> p[1][0]._class_name
+        'span4'
+
+        >>> for pb in p:
+        ...     pb._class_name == 'row'
+        True
+        True
         """
         ret = cls(block_name=config.get('block'),
                   class_name=config.get('class'))
