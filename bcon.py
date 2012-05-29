@@ -1,5 +1,18 @@
 #-*- coding: UTF-8 -*-
 
+class Block(object):
+	def __init__(self, name, modificator=None):
+		self.name = name
+		self.modificator = modificator
+
+	def __repr__(self):
+		return '<Block %s>' % self.name
+
+
+class Page(object):
+	def compile(self):
+		raise NotImplementedError
+
 
 class Bacon(object):
     def __init__(self, block_name=None, class_name=None):
