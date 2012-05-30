@@ -1,5 +1,21 @@
 #-*- coding: UTF-8 -*-
 
+"""
+
+# Hmm... Like this maybe:
+
+('container', 
+    ('row', 
+        ('span12', {'block': 'header', 'modif': 'index'})), 
+    ('row',
+        ('span3', {'block': 'sidebar'}
+                  {'block': 'adv'}),
+        ('span9', {'block': 'content'})),
+    ('row',
+        ('span12', {'block': 'footer'})))
+
+"""
+
 class Block(object):
 	def __init__(self, name, modificator=None):
 		self.name = name
