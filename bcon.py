@@ -1,74 +1,39 @@
 #-*- coding: UTF-8 -*-
-import os
-import sys
-import shutil
-import argparse
-import json
-from xml.dom.minidom import parse
+"""
+
+('container', 
+    ('row', 
+        ('span12', {'block': 'header', 'modif': 'index'})), 
+    ('row',
+        ('span3', {'block': 'sidebar'}
+                  {'block': 'adv'}),
+        ('span9', {'block': 'content'})),
+    ('row',
+        ('span12', {'block': 'footer'})))
 
 
-class Block(object):
-    def __init__(self, name):
+>>> decl1 = ('container',)
+>>> w1 = Wrapper.create_from_decl(decl1)
+>>> w1.class_
+'container'
+
+"""
+
+class Block(object): # Block objects are made of dicts :)
+    def __init__(self, name=None):
         self.name = name
-        self.children = {}
 
+class Wrapper(object): # Wrapper objects are made of tuples
+    def __init__(self, class_):
+        self.class_ = class_
+        
     @classmethod
-    def create_from_config(cls, config):
-        """
-        >>> conf = {
-        ...     'block': 'index',
-        ...     'content': {
-        ...         'header': {
-        ...             'block': 'header'
-        ...         },
-        ...         'body': {
-        ...             'block': 'body',
-        ...             'content': {
-        ...                 'links': {
-        ...                     'block': 'links',
-        ...                     'content': {
-        ...                         'link1': 'Some link',
-        ...                         'some_place': {
-        ...                             'block': 'some_block'
-        ...                         }
-        ...                     }
-        ...                 }
-        ...             }
-        ...         }
-        ...     }
-        ... }
-        >>> b = Block.create_from_config(conf)
-        >>> b.name
-        'index'
-        >>> isinstance(b.children['header'], Block)
-        True
-        >>> b.children['header'].children
-        {}
-        >>> isinstance(b.children['body'], Block)
-        True
-        >>> isinstance(b.children['body'].children['links'], Block)
-        True
-        >>> b.children['body'].children['links'].name
-        'links'
-        >>> b.children['body'].children['links'].children
-        {'link1': 'Some link', 'some_place': <Block 'some_block'>}
-        >>> b.children['body'].children
-        {'links': <Block 'links'>}
-        """
-        ret = cls(config['block'])
+    def create_from_decl(cls, iterable):
+        head = iterable[0]
+        tail = iterable[1:]
+        return Wrapper(head)
 
-        if 'content' in config:
-            for child_name, child_value in config['content'].iteritems():
-                if isinstance(child_value, basestring):
-                    ret.children[child_name] = child_value
-                elif isinstance(child_value, dict):  # wow! it's a config!
-                    child_block = cls.create_from_config(child_value)
-                    ret.children[child_name] = child_block
 
-        return ret
-
-    def __repr__(self):
-        return '<Block \'%s\'>' % self.name
 
 if __name__ == '__main__':
     import doctest
