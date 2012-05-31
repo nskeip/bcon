@@ -5,6 +5,7 @@
 Description
 -----------
 Bcon stands for Block CONnection. And we use it for:
+
 * developing separate layout blocks and then reusing them to death
 * forgetting about template dependencies
 * ...
