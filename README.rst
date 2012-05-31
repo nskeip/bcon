@@ -4,18 +4,20 @@
 
 Description
 -----------
+Bcon stands for Block CONnection. And we use it for:
+* developing separate layout blocks and then reusing them to death
+* forgetting about template dependencies
+* ...
+* PROFIT!
 
-Mmm... Bacon. An implementation of block-element-modyfier pattern. It is all about declarative way in html layout. In progress, bro. Wait a bit.
-
+A note on bootstrap and Django love
+-----------------------------------
+We designed this for django and bootstrap.
 
 What it can
 -----------
-* Can help you develop separate layout blocks (but if you do it _right_:)) and then reuse it to death
-* Can help you to extend your layout
-* Can help you forget about template dependencies - if you want to
-
+* create a layout (and even project and apps!) from declaration
 
 What it can not
 ---------------
-* It can not make your workflow faster. It is not about a web-page in 5 minutes. It is almost all about maintenance.
 * Do all shit for you. It just won't work. You need at least to understand what it does.
