@@ -19,26 +19,26 @@ Let's do some tests...
 Yes, a note on typecheck: we do it, because user can be a bad guy.
 
 >>> decl1 = ('container',)
->>> w1 = Wrapper.create_from_decl(decl1)
+>>> w1 = GridWrapper.create_from_decl(decl1)
 >>> w1.class_
 'container'
 >>> w1.blocks
 []
 
 >>> decl2 = ('span12', {'block': 'nav'})
->>> w2 = Wrapper.create_from_decl(decl2)
+>>> w2 = GridWrapper.create_from_decl(decl2)
 >>> w2.blocks
 [<Block: nav>]
 
 >>> decl3 = ('span12', {'block': 'nav'}, {'block': 'content'})
->>> w3 = Wrapper.create_from_decl(decl3)
+>>> w3 = GridWrapper.create_from_decl(decl3)
 >>> w3.blocks
 [<Block: nav>, <Block: content>]
 
 
 Testing invalid declaration:
 
->>> Wrapper.create_from_decl([{}, {'block': 'some_block'},])
+>>> GridWrapper.create_from_decl([{}, {'block': 'some_block'},])
 Traceback (most recent call last):
 ...
 TypeError: Invalid class_ type: <type 'dict'> (expected: basestring)
@@ -70,7 +70,7 @@ class Block(object): # Block objects are made of dicts :)
         except KeyError:
             raise TypeError('Invalid block declaration: %s' % d)
 
-class Wrapper(object): # Wrapper objects are made of tuples
+class GridWrapper(object): # GridWrapper objects are made of tuples
     def __init__(self, class_, blocks=None):
         if not isinstance(class_, basestring):
             raise TypeError('Invalid class_ type: %s (expected: basestring)' \
@@ -87,7 +87,7 @@ class Wrapper(object): # Wrapper objects are made of tuples
     def create_from_decl(cls, iterable):
         head = iterable[0]
         tail = list(iterable[1:])
-        return Wrapper(head, blocks=[Block.create_from_dict(d) 
+        return GridWrapper(head, blocks=[Block.create_from_dict(d)
                                      for d in tail])
 
 
