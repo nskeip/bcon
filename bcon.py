@@ -9,7 +9,7 @@ So, we want to have a declaration like this:
     ('row',
         ('span3', {'block': 'sidebar'}
                   {'block': 'adv'}),
-        ('span9', {'block': 'content'})),
+        ('span9', {'block': 'content', 'context': {'foo': 'bar'}})),
     ('row',
         ('span12', {'block': 'footer'})))
 
@@ -25,10 +25,12 @@ Yes, a note on typecheck: we do it, because user can be a bad guy.
 >>> w1.blocks
 []
 
->>> decl2 = ('span12', {'block': 'nav'})
+>>> decl2 = ('span12', {'block': 'nav', 'context': {'foo': 'bar'}})
 >>> w2 = GridWrapper.create_from_decl(decl2)
 >>> w2.blocks
 [<Block: nav>]
+>>> w2.blocks[0].context
+{'foo': 'bar'}
 
 >>> decl3 = ('span12', {'block': 'nav'}, {'block': 'content'})
 >>> w3 = GridWrapper.create_from_decl(decl3)
@@ -54,11 +56,13 @@ TypeError: Invalid block name: {} (expected: basestring)
 """
 
 class Block(object): # Block objects are made of dicts :)
-    def __init__(self, name):
+    def __init__(self, name, context=None):
         if not isinstance(name, basestring):
             raise TypeError('Invalid block name: %s (expected: basestring)' \
                 % name)
+
         self.name = name
+        self.context = context or {}
         
     def __repr__(self):
         return '<Block: %s>' % self.name
@@ -66,7 +70,8 @@ class Block(object): # Block objects are made of dicts :)
     @classmethod
     def create_from_dict(cls, d):
         try:
-            return cls(d['block'])
+            return cls(d['block'],
+                       context=d.get('context'))
         except KeyError:
             raise TypeError('Invalid block declaration: %s' % d)
 
