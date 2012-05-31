@@ -13,46 +13,6 @@ So, we want to have a declaration like this:
     ('row',
         ('span12', {'block': 'footer'})))
 
-
-Let's do some tests...
-
-Yes, a note on typecheck: we do it, because user can be a bad guy.
-
->>> decl1 = ('container',)
->>> w1 = GridWrapper.create_from_decl(decl1)
->>> w1.class_
-'container'
->>> w1.blocks
-[]
-
->>> decl2 = ('span12', {'block': 'nav', 'context': {'foo': 'bar'}})
->>> w2 = GridWrapper.create_from_decl(decl2)
->>> w2.blocks
-[<Block: nav>]
->>> w2.blocks[0].context
-{'foo': 'bar'}
-
->>> decl3 = ('span12', {'block': 'nav'}, {'block': 'content'})
->>> w3 = GridWrapper.create_from_decl(decl3)
->>> w3.blocks
-[<Block: nav>, <Block: content>]
-
-
-Testing invalid declaration:
-
->>> GridWrapper.create_from_decl([{}, {'block': 'some_block'},])
-Traceback (most recent call last):
-...
-TypeError: Invalid class_ type: <type 'dict'> (expected: basestring)
-
-
-And testing invalid block...
-
->>> Block({})
-Traceback (most recent call last):
-...
-TypeError: Invalid block name: {} (expected: basestring)
-
 """
 
 class Block(object): # Block objects are made of dicts :)
