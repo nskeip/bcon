@@ -56,8 +56,3 @@ class GridWrapper(object): # GridWrapper objects are made of tuples
         tail = list(iterable[1:])
         return GridWrapper(head, blocks=[Block.create_from_dict(d)
                                      for d in tail])
-
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
