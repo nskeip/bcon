@@ -1,0 +1,10 @@
+{
+    "js": [
+            "js/jquery1.7.2.min.js",
+            "js/test_block/script.js"
+    ],
+
+    "css": [
+            "css/test_block/style.css"
+    ]
+}
