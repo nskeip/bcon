@@ -17,7 +17,7 @@ class GridWrapperTestCase(unittest2.TestCase):
 
     def test_nested_blocks_created(self):
         decl = ('span12', {'block': 'nav', 'context': {'foo': 'bar'}},
-                          {'block': 'body'})
+                          {'block': 'body', 'modif': 'cool'})
         g = GridWrapper.create_from_decl(decl)
         self.assertTrue(isinstance(g.blocks, list))
 
@@ -29,3 +29,4 @@ class GridWrapperTestCase(unittest2.TestCase):
 
         b_body = g.blocks[1]
         self.assertTrue(isinstance(b_body, Block))
+        self.assertEquals(b_body.modif, 'cool')

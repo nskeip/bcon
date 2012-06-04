@@ -16,21 +16,23 @@ So, we want to have a declaration like this:
 """
 
 class Block(object): # Block objects are made of dicts :)
-    def __init__(self, name, context=None):
+    def __init__(self, name, modif=None, context=None):
         if not isinstance(name, basestring):
             raise TypeError('Invalid block name: %s (expected: basestring)' \
                 % name)
 
         self.name = name
+        self.modif = modif
         self.context = context or {}
         
     def __repr__(self):
         return '<Block: %s>' % self.name
-        
+
     @classmethod
     def create_from_dict(cls, d):
         try:
             return cls(d['block'],
+                       modif=d.get('modif'),
                        context=d.get('context'))
         except KeyError:
             raise TypeError('Invalid block declaration: %s' % d)
