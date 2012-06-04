@@ -44,7 +44,7 @@ class GridWrapper(object): # GridWrapper objects are made of tuples
                 % type(class_))
 
         if blocks is not None and not isinstance(blocks, (list, tuple)):
-            raise TypeError('Invalid block type: %s' + type(class_) + \
+            raise TypeError('Invalid block type: %s' % type(class_) + \
                             '(expected: list or tuple)')
 
         self.class_ = class_
