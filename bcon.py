@@ -56,3 +56,20 @@ class GridWrapper(object): # GridWrapper objects are made of tuples
         tail = list(iterable[1:])
         return GridWrapper(head, blocks=[Block.create_from_dict(d)
                                      for d in tail])
+
+class BasePage(object):
+    def __init__(self, grid=None, dependencies=None):
+        self.grid = grid
+        self.dependencies = dependencies or {}
+
+    def compile(self):
+        """
+        this is where resources go to proper folders
+        """
+        raise NotImplementedError
+
+    def render(self):
+        """
+        this is where page is rendered
+        """
+        raise NotImplementedError
