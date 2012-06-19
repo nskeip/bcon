@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>{% templatetag openvariable %}title{% templatetag closevariable %}</title>
-    {{ css }}
-    {{ less }}
-    {{ js }}base
+    {% if css %}{{ css }}{% endif %}
+    {% if less %}{{ less }}{% endif %}
+    {% if js %}{{ js }}{% endif %}
 </head>
 <body>
 {{ content }}
